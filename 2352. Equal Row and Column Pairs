@@ -1,0 +1,38 @@
+2352. Equal Row and Column Pairs
+Given a 0-indexed n x n integer matrix grid, return the number of pairs (ri, cj) such that row ri and column cj are equal.
+A row and column pair is considered equal if they contain the same elements in the same order (i.e., an equal array).
+
+
+class Solution {
+    public int equalPairs(int[][] grid) {
+        int i=0;
+        int ans=0;
+        while(i<grid.length){
+            int j=0;
+            while(j<grid[0].length){
+                if(grid[i][0]==grid[0][j]){
+                    int x=i;
+                    int y=0;
+                    int m=0;
+                    int n=j;
+                    boolean flag=true;
+                    while(y<grid[0].length && m<grid.length){
+                        if(grid[x][y]!=grid[m][n]){
+                            flag=false;
+                            break;
+                        }
+                        y++;
+                        m++;
+                    }
+                    if(flag==true){
+                        ans++;
+                    }
+                }
+                j++;
+            }
+            i++;
+            //return ans;
+        }
+        return ans;
+    }
+}
