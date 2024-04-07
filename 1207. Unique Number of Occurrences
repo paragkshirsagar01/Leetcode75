@@ -1,0 +1,21 @@
+1207. Unique Number of Occurrences
+Given an array of integers arr, return true if the number of occurrences of each value in the array is unique or false otherwise.
+
+
+class Solution {
+    public boolean uniqueOccurrences(int[] arr) {
+        Set<Integer> st1 = Arrays.stream(arr).boxed().collect(Collectors.toSet());
+        List<Integer> l1 = Arrays.stream(arr).boxed().collect(Collectors.toList());
+        Map<Integer,Integer> mp=new HashMap<>();
+        for(Integer x:st1){
+            int temp=Collections.frequency(l1,x);
+            if(mp.containsKey(temp)){
+                return false;
+            }else{
+                mp.put(temp,x);
+            }
+        }
+        return true;
+    }
+}
+ 
