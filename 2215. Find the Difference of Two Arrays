@@ -1,0 +1,20 @@
+2215. Find the Difference of Two Arrays
+
+Given two 0-indexed integer arrays nums1 and nums2, return a list answer of size 2 where:
+answer[0] is a list of all distinct integers in nums1 which are not present in nums2.
+answer[1] is a list of all distinct integers in nums2 which are not present in nums1.
+Note that the integers in the lists may be returned in any order.
+
+class Solution {
+    public List<List<Integer>> findDifference(int[] nums1, int[] nums2) {
+        Set<Integer> st1=Arrays.stream(nums1).boxed().collect(Collectors.toSet());
+        Set<Integer> st2=Arrays.stream(nums2).boxed().collect(Collectors.toSet());
+        List<Integer> l1=new ArrayList<>(st1);
+        l1.removeAll(st2);
+        st2.removeAll(st1);
+        List<List<Integer>> ans=new ArrayList();
+        ans.add(l1);
+        ans.add(new ArrayList<>(st2));
+        return ans;
+    }
+}
