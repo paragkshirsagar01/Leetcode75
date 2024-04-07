@@ -1,0 +1,59 @@
+452. Minimum Number of Arrows to Burst Balloons
+
+There are some spherical balloons taped onto a flat wall that represents the XY-plane. 
+The balloons are represented as a 2D integer array points where points[i] = [xstart, xend] denotes 
+a balloon whose horizontal diameter stretches between xstart and xend. You do not know the exact y-coordinates of the balloons.
+Arrows can be shot up directly vertically (in the positive y-direction) from different points along the 
+x-axis. A balloon with xstart and xend is burst by an arrow shot at x if xstart <= x <= xend. 
+There is no limit to the number of arrows that can be shot. A shot arrow keeps traveling up infinitely, bursting any balloons in its path.
+Given the array points, return the minimum number of arrows that must be shot to burst all balloons.
+
+
+class Solution {
+    public int findPivot(int i,int j,int[][] points){
+        int ind=i-1;
+        //int pivot=points[j][0];
+        int pivot2=points[j][1];
+        for(int x=i;x<j;x++){
+            if(points[x][1]<=pivot2){
+                ind++;
+                int temp1=points[x][0];
+                int temp2=points[x][1];
+                points[x][0]=points[ind][0];
+                points[x][1]=points[ind][1];
+                points[ind][0]=temp1;
+                points[ind][1]=temp2;
+            }
+        }
+        ind++;
+        int temp1=points[j][0];
+        int temp2=points[j][1];
+        points[j][0]=points[ind][0];
+        points[j][1]=points[ind][1];
+        points[ind][0]=temp1;
+        points[ind][1]=temp2;
+        return ind;
+    }
+    public void sort(int i,int j,int[][] points){
+        if(i>=j){
+            return;
+        }
+        int pivotInd=findPivot(i,j,points);
+        sort(i,pivotInd-1,points);
+        sort(pivotInd+1,j,points);
+    }
+    public int findMinArrowShots(int[][] points) {
+        sort(0,points.length-1,points);
+        int i=0;
+        int cnt=0;
+        while(i<points.length){
+            int j=i+1;
+            while(j<points.length && points[j][0]<=points[i][1]){
+                j++;
+            }
+            cnt++;
+            i=j;
+        }
+        return cnt;
+    }
+}
