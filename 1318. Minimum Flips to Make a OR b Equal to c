@@ -1,0 +1,29 @@
+1318. Minimum Flips to Make a OR b Equal to c
+
+Given 3 positives numbers a, b and c. Return the minimum flips required in some bits of a and b to make ( a OR b == c ). (bitwise OR operation).
+Flip operation consists of change any single bit 1 to 0 or change the bit 0 to 1 in their binary representation
+
+class Solution {
+    public int minFlips(int a, int b, int c) {
+        int i=1;
+        int cnt=0;
+        int ans=0;
+        while(cnt<32){
+            i=1<<cnt;
+            if((i&c)!=0){
+                if((b&i)==0 && (a&i)==0){
+                    ans++;
+                }
+            }else if((i&c)==0){
+                if((i&a)!=0){
+                    ans++;
+                }
+                if((i&b)!=0){
+                    ans++;
+                }
+            }
+            cnt++;
+        }
+        return ans;
+    }
+}
