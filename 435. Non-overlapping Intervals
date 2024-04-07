@@ -1,0 +1,53 @@
+435. Non-overlapping Intervals
+
+Given an array of intervals intervals where intervals[i] = [starti, endi], 
+return the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.
+
+
+class Solution {
+    public int findPivot(int i,int j,int[][] intervals){
+        int pivot1=intervals[j][0];
+        int pivot2=intervals[j][1];
+        int ind=i-1;
+        for(int x=i;x<j;x++){
+            if(intervals[x][1]<=pivot2){
+                ind++;
+                int temp1=intervals[ind][0];
+                int temp2=intervals[ind][1];
+                intervals[ind][0]=intervals[x][0];
+                intervals[ind][1]=intervals[x][1];
+                intervals[x][0]=temp1;
+                intervals[x][1]=temp2;
+            }
+        }
+        ind++;
+        int temp1=intervals[ind][0];
+        int temp2=intervals[ind][1];
+        intervals[ind][0]=intervals[j][0];
+        intervals[ind][1]=intervals[j][1];
+        intervals[j][0]=temp1;
+        intervals[j][1]=temp2;
+        return ind;
+    }
+    public void qs(int i,int j,int[][] intervals){
+        if(i>=j){
+            return;
+        }
+        int pivotInd=findPivot(i,j,intervals);
+        qs(i,pivotInd-1,intervals);
+        qs(pivotInd+1,j,intervals);
+    }
+    public int eraseOverlapIntervals(int[][] intervals) {
+        qs(0,intervals.length-1,intervals);
+        int max=intervals[0][1];
+        int cnt=0;
+        for(int i=1;i<intervals.length;i++){
+            if(intervals[i][0]<max){
+                cnt++;
+                continue;
+            }
+            max=intervals[i][1];
+        }
+        return cnt;
+    }
+}
