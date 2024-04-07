@@ -1,0 +1,28 @@
+746. Min Cost Climbing Stairs
+
+You are given an integer array cost where cost[i] is the cost of ith step on a staircase. Once you pay the cost, you can either climb one or two steps.
+You can either start from the step with index 0, or the step with index 1.
+Return the minimum cost to reach the top of the floor.
+
+
+class Solution {
+    public int mincost(int i,int[] cost,int[] dp){
+        if(i>=cost.length){
+            return 0;
+        }
+        if(i==cost.length-1){
+            return dp[i]=cost[i];
+        }
+        if(dp[i]!=-1){
+            return dp[i];
+        }
+        int take1=cost[i]+mincost(i+1,cost,dp);
+        int take2=cost[i]+mincost(i+2,cost,dp);
+        return dp[i]=Math.min(take1,take2);
+    }
+    public int minCostClimbingStairs(int[] cost) {
+        int[] dp=new int[cost.length+1];
+        Arrays.fill(dp,-1);
+        return Math.min(mincost(0,cost,dp),mincost(1,cost,dp));
+    }
+}
