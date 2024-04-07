@@ -1,2 +1,2 @@
 # Leetcode75
-This repository contains solution of Leetcode 75 problems 
+This repository contains solution of Leetcode 75 problems in java 
