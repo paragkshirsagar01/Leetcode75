@@ -1,0 +1,23 @@
+739. Daily Temperatures
+
+Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i] 
+is the number of days you have to wait after the ith day to get a warmer temperature. If there is no future day for which this is possible, keep answer[i] == 0 instead.
+
+class Solution {
+    public int[] dailyTemperatures(int[] temperatures) {
+        Stack<Integer> stk=new Stack<>();
+        int i=temperatures.length-1;
+        int[] ans=new int[temperatures.length];
+        while(i>-1){
+            while((!stk.isEmpty()) && temperatures[i]>=temperatures[stk.peek()]){
+                stk.pop();
+            }
+            if(!stk.isEmpty()){
+                ans[i]=stk.peek()-i;
+            }
+            stk.push(i);
+            i--;
+        }
+        return ans;
+    }
+}
