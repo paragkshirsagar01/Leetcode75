@@ -1,0 +1,25 @@
+206. Reverse Linked List
+Given the head of a singly linked list, reverse the list, and return the reversed list.
+
+class Solution {
+    public ListNode reverse(ListNode head){
+        if(head.next!=null){
+            ListNode temp=reverse(head.next);
+            ListNode x=temp;
+            while(x.next!=null){
+                x=x.next;
+            }
+            head.next=null;
+            x.next=head;
+            return temp;
+        }
+        return head;
+    }
+    public ListNode reverseList(ListNode head) {
+        if(head==null || head.next==null){
+            return head;
+        }
+        ListNode temp=reverse(head);
+        return temp;
+    }
+}
